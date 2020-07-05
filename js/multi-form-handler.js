@@ -11,7 +11,7 @@ class Users {
     formsContainer = document.querySelector('.forms');
     formsChildren = this.formsContainer.children;
 
-    addForm = function() {
+    addForm = () => {
         const cloneTemplate = this.formTemplate.content.cloneNode(true);
         if(this.formsChildren.length){
             this.formsContainer.insertBefore(cloneTemplate, this.formsChildren[0]);
@@ -20,11 +20,11 @@ class Users {
         }
     }
     
-    removeForm = function(event) {
+    removeForm = (event) => {
        event.parentElement.parentElement.remove();
     }
     
-    validateForms = function() {
+    validateForms = () =>  {
         Array.from(this.formsChildren).map(item => {
             const cName = item.querySelector('[name=c-name]').value;
             const cEmail = item.querySelector('[name=c-email]').value;
@@ -37,14 +37,14 @@ class Users {
                     : item.querySelector('.c-error.c-phone').innerHTML = 'Please enter email address ';
         })
     }
-    saveForms = function() {
+    saveForms = () => {
         const data = new FormData();
         const jsonSaveData = Array.from(this.formsChildren)
                 .map(item => new newUser(item.querySelector('[name=c-name]').value, item.querySelector('[name=c-email]').value, item.querySelector('[name=c-phone]').value))
         data.append( "json", JSON.stringify( jsonSaveData ));
         this.myFetch(data)
     }
-    myFetch = async function (data) {
+    myFetch = async (data) =>  {
         try {
           let response = await fetch('/assignment/contact/save.php', {
             method: "POST",
@@ -60,23 +60,23 @@ class Users {
         } catch(e) {}
       }
     
-    removeAllChildNodes = function (parent) {
+    removeAllChildNodes = (parent) => {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
     }
     
-    validateName = function(name) {
+    validateName = (name)  => {
         const re = /^[A-Za-z ]+$/;
         return re.test(name);
     }
     
-    validateEmail = function(email) {
+    validateEmail = (email) => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
     
-    validatePhone = function(phone) {
+    validatePhone = (phone) => {
         const re = /^[0-9]+$/;
         return re.test(phone);
     }
