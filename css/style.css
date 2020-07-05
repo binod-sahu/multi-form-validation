@@ -35,6 +35,7 @@
   flex-direction: column;
   font-size: 18px;
   padding: 20px;
+  min-width: 47%;
 }
 .container .forms .form .header {
   height: 33px;

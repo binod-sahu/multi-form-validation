@@ -41,16 +41,29 @@ class Users {
         const data = new FormData();
         const jsonSaveData = Array.from(this.formsChildren)
                 .map(item => new newUser(item.querySelector('[name=c-name]').value, item.querySelector('[name=c-email]').value, item.querySelector('[name=c-phone]').value))
-        const test = jsonSaveData.map(item => item)
-        console.log(test)
         data.append( "json", JSON.stringify( jsonSaveData ));
-        fetch("/assignments/contact/save.php",
-        {
+        this.myFetch(data)
+    }
+    myFetch = async function (data) {
+        try {
+          let response = await fetch('/assignment/contact/save.php', {
             method: "POST",
             body: data
-        })
-        .then(function(res){ console.log(res); return res.json(); })
-        .then(function(data){ alert( JSON.stringify( data ) ) })
+        });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            this.removeAllChildNodes(this.formsContainer);
+            return await response.json();
+          }
+        } catch(e) {}
+      }
+    
+    removeAllChildNodes = function (parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
     }
     
     validateName = function(name) {

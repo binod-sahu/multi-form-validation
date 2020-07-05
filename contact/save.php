@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
         writeToFile($contactsToWrite);
         echo "message: Contacts are written to file successfully!!!";
     } else {
+        var_dump(http_response_code(404));
         echo "message: Contacts are not written to file!!!";
-    }
-    
+    }    
 }
 
 function name_validate($name) {
