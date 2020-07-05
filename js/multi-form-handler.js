@@ -44,7 +44,7 @@ class Users {
         const test = jsonSaveData.map(item => item)
         console.log(test)
         data.append( "json", JSON.stringify( jsonSaveData ));
-        fetch("/php-save-contacts/save.php",
+        fetch("/assignments/contact/save.php",
         {
             method: "POST",
             body: data
